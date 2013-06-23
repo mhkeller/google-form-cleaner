@@ -6,5 +6,5 @@ Built on <a href="http://www.github.com/ashaw" target="_blank">Al Shaw's</a> NIC
 
 #### TODO
 
-	1. Add some basic css and javascript to help with placeholder text.
-	2. See what else can be removed, such as unused attributes.
+  1. Add some basic css and javascript to help with placeholder text.
+  2. See what else can be removed, such as unused attributes.
