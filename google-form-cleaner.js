@@ -1,7 +1,9 @@
 var fs      = require('fs'),
     jsdom   = require("jsdom").jsdom,
     request = require('request'),
-    html    = require('html');
+    html    = require('html'),
+    _       = require('underscore'),
+    jQuery  = require('jquery');
 
 var get = function(url, cb) {
   request(url, function (error, response, body) {
@@ -16,8 +18,10 @@ var createDocument = function(html, cb) {
   var window   = document.createWindow();
   return jsdom.jQueryify(window, cb);
 };
+var key = '13CqnkxzjEPe89IMNCqp71crMoNqeGU-ZBs2Hahwk_Yk',
+    url = "https://docs.google.com/forms/d/"+key+"/viewform";
 
-var url = "https://docs.google.com/forms/d/1oYWLvAcvi_qprvMgEwNkgqOKEeGL5eoEP_tts0K0sdk/viewform"
+var templ = fs.readFileSync('page-form.template').toString();
 
 get(url, function(body) {  
   createDocument(body, function(window) {
@@ -52,8 +56,15 @@ get(url, function(body) {
                               .append(frame_of_death)
                               .append($new_form.clone());
 
-    var clean_form_html = $form_container.html().replace(/\n\n/g,'\n')
-    fs.writeFileSync("google-form-clean.html", html.prettyPrint(clean_form_html, { indent_size: 2 }));
+    var clean_form_html = $form_container.html().replace(/\n\n/g,'\n'); // remove double line breaks
+
+    var form_template = _.template(templ);
+    var json = {
+      form: clean_form_html
+    }
+    var form_html = form_template(json);
+
+    fs.writeFileSync("google-form-clean.html", html.prettyPrint(form_html, { indent_size: 2 }));
     
 
   });

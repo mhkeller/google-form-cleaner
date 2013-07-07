@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google form</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+	<style>
+		
+	</style>
+</head>
+<body>
+	<%= form %>
+</body>
+</html>
